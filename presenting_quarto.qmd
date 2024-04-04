@@ -68,7 +68,7 @@ editor: source
     -   Observable JavaScript
 -   There are bespoke tools for making [reports]{.red}:
     -   R Markdown and Xaringan are popular in the R world,
-    -   Jupiter notebooks and libraries like `md2html`, `Mistletoe`, and `MarkdownIt` are popular with Pythonistas.
+    -   Jupyter notebooks and libraries like `md2html`, `Mistletoe`, and `MarkdownIt` are popular with Pythonistas.
 -   I use a general purpose tool, the successor to R Markdown, [Quarto]{.red}.
 
 
@@ -79,11 +79,11 @@ editor: source
 + How much?  
     + Quarto is free.
 + From where?
-    + [https://quarto.org/](https://quarto.org/)
+    + [https://quarto.org/](https://quarto.org/){target='_blank'}
 + How do I use it?
     + Quarto is beautifully integrated with RStudio.  
     + If you use VS Code there is a full-featured Code Extension. 
-    + It also plays well with Jupiter Labs, including a Quarto JupyterLab Extension
+    + It also plays well with Jupyter Labs, including a Quarto JupyterLab Extension
     + Neovim integration is available through a Quarto-nvim plugin.
     + You can also use it with a text editor and a command line.
 
@@ -93,7 +93,7 @@ editor: source
 -   Add code blocks.
 -   Render the document.
     -   Set options to show or hide the code.
-    -   Choose an output format.
+    -   Choose an output format. 
         -   Documents: HTML, PDF, MS Word.
         -   Presentations: Revealjs, MS PowerPoint, Beamer
         -   ***Many*** others
@@ -320,16 +320,16 @@ format:
       show-slide-number: all
 ```
 
--   The `theme:` can be set for truly beautiful work. Learn more [here](https://www.youtube.com/watch?v=CblUFMoC9yg).
+-   The `theme:` can be set for truly beautiful work. Learn more [here](https://www.youtube.com/watch?v=CblUFMoC9yg){target='_blank'}.
 -   The `fontsize` of 2em requests dynamic sizing. 1em wants to be 16 pixels.
 -   The `mathjax` option helps deal with display errors for LaTeX formulas.
 -   The `slide-number: c` option shows the slide number without the total number of slides.
--   Setting `show-slide-number: all` shows the number to the audience. Details are [here](https://quarto.org/docs/presentations/revealjs/presenting.html).
+-   Setting `show-slide-number: all` shows the number to the audience. Details are [here](https://quarto.org/docs/presentations/revealjs/presenting.html){target='_blank'}.
 
 
 # Introduction to `revealjs`
 
-The Quarto website has an excellent introduction.  Check it out [here](https://quarto.org/docs/presentations/revealjs/).
+The Quarto website has an excellent introduction.  Check it out [here](https://quarto.org/docs/presentations/revealjs/){target='_blank'}.
 
 + Making Slides
 + Incremental Bullets
@@ -581,8 +581,8 @@ blah
 # Getting the Shortcuts
 
 :::{.small}
-+ A video showing these instructions is [here](https://vimeo.com/videos/913353916).
-+ Copy my code from [here]( https://gist.githubusercontent.com/RaymondBalise/3ed5c1dfabc5ca1514462b57cecb5666/raw/198105d73ba727c4b4cb78905884694dbbc882dd/RStudio%2520markdown%2520snippets).  You can also copy and paste from below, but you may need to delete unwanted characters. If you see salmon colored blocks, delete them. The indentation must use the tab key (not spaces).
++ A video showing these instructions is [here](https://vimeo.com/videos/913353916){target='_blank'}.
++ Copy my code from [here]( https://gist.githubusercontent.com/RaymondBalise/3ed5c1dfabc5ca1514462b57cecb5666/raw/198105d73ba727c4b4cb78905884694dbbc882dd/RStudio%2520markdown%2520snippets){target='_blank'}.  You can also copy and paste from below, but you may need to delete unwanted characters. If you see salmon colored blocks, delete them. The indentation must use the tab key (not spaces).
 + In RStudio go to the Tools Menu > General Options > Code (Windowpane) > Edit Snippets... (Button) > Markdown (Windowpane)
 + Paste the new code below the code that is already there (typically after the "snippet rcpp" chunk).
 :::
@@ -714,7 +714,7 @@ thingy <- c("x", "y")
 df[, thingy]
 ```
 
-+ You can turn on and off the highlighting for multiple lines in sequence. Learn more [here](https://quarto.org/docs/presentations/revealjs/#line-highlighting).
++ You can turn on and off the highlighting for multiple lines in sequence. Learn more [here](https://quarto.org/docs/presentations/revealjs/#line-highlighting){target='_blank'}.
 
 ## Showing Code Blocks
 
@@ -950,8 +950,8 @@ This is [colored]{.red} with my red class.
 ## Theming/Styling
 
 + You can customize the fonts and every aspect of the colors you use (background, foreground, fonts). There are a couple of great, quick tutorials:
-  + Greg Swinehart's [talk](https://www.youtube.com/watch?v=i2mdxfvm_VY) and [materials](https://github.com/gregswinehart/conf-talk-2023)
-  + Emil Hvitfeldt's website from his Posit::Conf(2023) [talk](https://emilhvitfeldt.github.io/talk-quarto-theming-positconf/#/make-pretty-things)
+  + Greg Swinehart's [talk](https://www.youtube.com/watch?v=i2mdxfvm_VY){target='_blank'} and [materials](https://github.com/gregswinehart/conf-talk-2023){target='_blank'}
+  + Emil Hvitfeldt's website from his Posit::Conf(2023) [talk](https://emilhvitfeldt.github.io/talk-quarto-theming-positconf/#/make-pretty-things){target='_blank'}
 
 ## Full Slide Scrolling
 
@@ -1086,7 +1086,7 @@ You can nest deeper.  If you wanted to use really small text in a column, the co
 
 1. You can use the RStudio IDE publish button.
     + UM provides a posit.connect server.  It has user-friendly tools for setting up groups (classes) and allowing access for whomever you would like.
-    + You can also publish to Quarto Pubs or other public sites. Learn more [here](https://quarto.org/docs/publishing/).
+    + You can also publish to Quarto Pubs or other public sites. Learn more [here](https://quarto.org/docs/publishing/){target='_blank'}.
 
 ![](images/publish.jpg){.nostretch fig-align="center" width=40%}
 
