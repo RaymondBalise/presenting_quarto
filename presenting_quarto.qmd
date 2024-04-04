@@ -1,0 +1,1094 @@
+---
+title: "Present Health Data"
+subtitle: "Using Quarto with R and/or Python to Prepare Reproducible Reports"
+author: 
+  - name: "Raymond Balise, PhD"
+    affiliation: 
+      - "Univerity of Miami, Biostatistics"
+date: "`r Sys.Date()`"
+format:
+    revealjs:
+      theme: [default]
+      fontsize: 2em
+      html-math-method: mathjax
+      slide-number: c
+      show-slide-number: all
+embed-resources: true
+knitr:
+    opts_chunk:      ########## set global options ############
+        collapse: true # keep code from blocks together (if shown)
+        echo: false    # don't show code
+        message: true  # show messages
+        warning: true  # show warnings
+        error: true    # show error messages
+        comment: ""    # don't show ## with printed output
+        R.options:    
+            digits: 3    # round to three digits
+editor_options: 
+  chunk_output_type: console
+editor: source
+---
+
+# Introduction
+
+```{css}
+.max-lines {
+  max-height: 400px; /* Adjust height as needed */
+  overflow: scroll; /* Enable scrolling if content exceeds height */
+}
+
+.scrolling {
+  overflow: scroll;
+  height: 600px; 
+}
+
+.reveal ol {
+    margin: 0 0 0 1.5em;
+}
+```
+
+## The Road to Madness
+
+-   I used to use SAS to do analyses and graphics and ...
+
+-   Excel for making tables and ...
+
+-   Word for writing prose ...
+
+-   Then I would paste everything together.
+
+-   What happens when one person is removed from the analysis set?
+
+## The Road to Recovery
+
+-   Data scientists, bioinformaticians, and statisticians use many open-source [programs]{.red} for doing analyses and creating graphics:
+    -   R
+    -   Python
+    -   Julia
+    -   Observable JavaScript
+-   There are bespoke tools for making [reports]{.red}:
+    -   R Markdown and Xaringan are popular in the R world,
+    -   Jupiter notebooks and libraries like `md2html`, `Mistletoe`, and `MarkdownIt` are popular with Pythonistas.
+-   I use a general purpose tool, the successor to R Markdown, [Quarto]{.red}.
+
+
+# How Quarto Works
+
+## The _Deets_
+
++ How much?  
+    + Quarto is free.
++ From where?
+    + [https://quarto.org/](https://quarto.org/)
++ How do I use it?
+    + Quarto is beautifully integrated with RStudio.  
+    + If you use VS Code there is a full-featured Code Extension. 
+    + It also plays well with Jupiter Labs, including a Quarto JupyterLab Extension
+    + Neovim integration is available through a Quarto-nvim plugin.
+    + You can also use it with a text editor and a command line.
+
+## How does Quarto work?
+
+-   Start by writing text/prose annotated with basic Markdown.
+-   Add code blocks.
+-   Render the document.
+    -   Set options to show or hide the code.
+    -   Choose an output format.
+        -   Documents: HTML, PDF, MS Word.
+        -   Presentations: Revealjs, MS PowerPoint, Beamer
+        -   ***Many*** others
+- Add whatever formatting you can think of.
+
+# What do you get?
+
+## A Coding Paper Example
+
+::: {.scrolling}
+Scroll down to see more of the picture.
+![](images/allison.png)
+:::
+
+## Slide Decks with Built-in Controls
+
++ Click on the "hamburger" button in the bottom left corner to bring up the _Navigation Menu_ with a slide list and tools.
+
+![](images/hamburger.jpg){.nostretch fig-align="center" width=50%}
+
+
++ To see Keyboard Shortcuts, type the _**?**_ key.
+
+## Slide Decks - Navigation Menu
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+Click on a title to jump to a slide.
+
+::: {}
+![](images/navigate_slides.jpg){.nostretch fig-align="center" width=100%}
+:::
+::::
+
+:::: {.column width="50%"}
+The Tools include a PDF export.
+
+::: {}
+![](images/navigate_tools.jpg){.nostretch fig-align="center" width=100%}
+:::
+::::
+:::::
+
+## Slide Decks - Keyboard Shortcuts
+
++ Type type the _**?**_ key when using a deck to see the shortcuts.
+
+![](images/shortcut.jpg){.nostretch fig-align="center" width=50%}
+
++ When teaching, if you have two displays, open the presentation in two browser windows.  In the display that students see, type **_F_** (for **Full Screen**). In the display that you see, type **_S_** (for **Speaker Notes**).
+
+# How to Create Content
+
+## The Structure of a Quarto File
+
+-   It is just text.
+-   It starts with a header that has details like the title, author and the output format.
+
+``` yaml
+---
+title: "Untitled"
+author: "Raymond R. Balise"
+format: html
+---
+```
+
+-   Then you add your content.
+
+## Annotate Your Content with Markdown $_1$
+
+You write prose and use Markdown to control the basic formatting.
+
+![](images/markdown_basic.jpg){fig-align="center" width="40%"}
+
+::: {.footer style="font-size: .2em;"}
+https://www.markdownguide.org/cheat-sheet/
+:::
+
+## Annotate Your Content with Markdown $_2$
+
+![](images/markdown_extended.jpg){fig-align="center" width="40%"}
+
+::: {.footer style="font-size: .2em;"}
+https://www.markdownguide.org/cheat-sheet/
+:::
+
+## Writing Papers with Markdown
+
+-   When you write papers, you will add section headings, like **Abstract ** or **Introduction** by using one or more `#` at the beginning of a line.
+
+```markdown
+# Abstract
+Science Happened
+
+# Introduction
+Other people did stuff. Then I did stuff.
+```
+-   You can add in bold text like `**Taylor Swift**` or italicize words like `_Lover_` or both `_**You Need To Calm Down**_`.
+
+My favorite song from **Taylor Swift** is from _Lover_.  _**You Need To Calm Down**_ is brilliant.
+
+## Using Embedded Analysis Code
+
++ If you want to include analysis results, a table or figure in your paper, you just add a code block and tell Quarto to show/hide the code. 
+
++ Adding a code block is as easy as adding a few characters before and after the code:
+
+```{{r}}
+# Some R code
+1 + 1
+```
+<br>
+```{{python}}
+# Some Python code
+1 + 1
+```
+
+
+## Show and Tell with Hash Pipe Settings
+You will use the  `#| echo: ` setting to control whether readers will see your code. You just type `#| echo: true` to show the code or `#| echo: false` to hide it.
+
+```{{r}}
+#| echo: false
+penguins <- palmerpenguins::penguins
+plot(penguins$bill_length_mm, penguins$bill_depth_mm)
+```
+
+:::{.center}
+```{r fig.height=3}
+#| echo: false
+penguins <- palmerpenguins::penguins
+plot(penguins$bill_length_mm, penguins$bill_depth_mm)
+```
+:::
+
+## {visibility="hidden"}
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Fixing random state for reproducibility
+np.random.seed(19680801)
+
+
+N = 50
+x = np.random.rand(N)
+y = np.random.rand(N)
+colors = np.random.rand(N)
+area = (30 * np.random.rand(N))**2  # 0 to 15 point radii
+
+plt.scatter(x, y, s=area, c=colors, alpha=0.5)
+plt.show()
+```
+
+## Writing Slides
+
+-   When you write slides, minimally, you will change the header to specify a different output format. I like revealjs slides:
+
+``` yaml
+---
+title: "Untitled"
+author: "Raymond R. Balise"
+format: revealjs
+---
+```
+
+## A Real Header
+::::{.small}
+You can borrow my YAML header which includes R code.  Cut the `knitr:` section if you are using Python. You can automatically insert today's date with <code>date: &#34;&#96;r Sys.Date()&#96;&#34;</code>.
+
+::: max-lines
+``` yaml
+---
+title: "Teaching with Quarto"
+subtitle: "Slides without Sliding into Madness"
+author: 
+  - name: "Raymond Balise PhD"
+    affiliation: 
+      - "Univerity of Miami, Biostatistics"
+date: "`r Sys.Date()`"
+format:
+    revealjs:
+      theme: [default]
+      fontsize: 2em
+      html-math-method: mathjax
+      slide-number: c
+      show-slide-number: all
+knitr:
+    opts_chunk:      ########## set global options ############
+        collapse: true # keep code from blocks together (if shown)
+        echo: false    # don't show code
+        message: true  # show messages
+        warning: true  # show warnings
+        error: true    # show error messages
+        comment: ""    # don't show ## with printed output
+        R.options:    
+            digits: 3    # round to three digits
+embed-resources: true
+editor_options: 
+  chunk_output_type: console
+editor: source  
+---
+```
+:::
+
+-   The indenting (2 spaces) and trailing `:`s matters for setting suboptions.
+-   The `knitr:` section says to use the **knitr** engine to render the R sections. I also use `jupyter: python3`.
+- `embed-resources: true` puts all the output into a single file.
+-   The `editor_options` and `editor` sections are for RStudio.
+
+::::
+
+## The `format` Details
+
+``` yaml
+format:
+    revealjs:
+      theme: [default]
+      fontsize: 2em
+      html-math-method: mathjax
+      slide-number: c
+      show-slide-number: all
+```
+
+-   The `theme:` can be set for truly beautiful work. Learn more [here](https://www.youtube.com/watch?v=CblUFMoC9yg).
+-   The `fontsize` of 2em requests dynamic sizing. 1em wants to be 16 pixels.
+-   The `mathjax` option helps deal with display errors for LaTeX formulas.
+-   The `slide-number: c` option shows the slide number without the total number of slides.
+-   Setting `show-slide-number: all` shows the number to the audience. Details are [here](https://quarto.org/docs/presentations/revealjs/presenting.html).
+
+
+# Introduction to `revealjs`
+
+The Quarto website has an excellent introduction.  Check it out [here](https://quarto.org/docs/presentations/revealjs/).
+
++ Making Slides
++ Incremental Bullets
++ Sequentially Display Fragments
+
+## Making Slides
+
++ Making a slide deck is as easy as using a `#` to make a section header slide and `##` for a normal slide with a title.
++ Here is how I started this deck:
+
+``` markdown
+# Introduction to `revealjs`
+some words
+
+## Making Slides
+more words
+
+## Adding Simple Fences - Incremental Bullets
+even more words
+
+```
+
+## Adding Simple Fences - Incremental Bullets
+Quarto uses `::: {}` notation to add details for sections of slides.  
+
+For example, surrounding a bullet list with `:::{.incremental}` and `:::` creates a slide that reveals each new element on a mouse click.
+
+```markdown
+# Incremental is Slow if You Have Many Lines...
+::: {.incremental}
+- Billie Eilish
+  - When We All Fall Asleep, Where Do We Go?
+  - Happier Than Ever
+- Taylor Swift
+  - Taylor Swift
+  - Fearless
+  - Speak Now
+  - Red
+  - 1989
+  - Reputation
+  - Lover
+  - Folklore
+  - Evermore
+  - Midnights
+  - The Tortured Poets Department
+:::
+```
+
+## Incremental is Slow if You Have Many Lines...
+::::{.small}
+::: {.incremental}
+- Billie Eilish
+  - When We All Fall Asleep, Where Do We Go?
+  - Happier Than Ever
+- Taylor Swift
+  - Taylor Swift
+  - Fearless
+  - Speak Now
+  - Red
+  - 1989
+  - Reputation
+  - Lover
+  - Folklore
+  - Evermore
+  - Midnights
+  - The Tortured Poets Department
+:::
+::::
+
+## Adding Simple Fences - Fragments
+
+You can reveal any chunk by encasing it with fences and tagging the section as a `.fragment`.
+
+``` markdown
+::: {.fragment}
+- Billie Eilish
+  - When We All Fall Asleep, Where Do We Go?
+  - Happier Than Ever
+:::
+::: {.fragment}
+- Taylor Swift
+  - Taylor Swift
+  - Fearless
+  - Speak Now
+  - Red
+  - 1989
+  - Reputation
+  - Lover
+  - Folklore
+  - Evermore
+  - Midnights
+  - The Tortured Poets Department
+:::
+```
+
+## Adding Simple Fences - Fragments
+::::{.small}
+::: {.fragment}
+- Billie Eilish
+  - When We All Fall Asleep, Where Do We Go?
+  - Happier Than Ever
+:::
+::: {.fragment}
+- Taylor Swift
+  - Taylor Swift
+  - Fearless
+  - Speak Now
+  - Red
+  - 1989
+  - Reputation
+  - Lover
+  - Folklore
+  - Evermore
+  - Midnights
+  - The Tortured Poets Department
+:::
+::::
+
+## Customizing Slides - Ray's Shortcuts
+
+-   I have written RStudio IDE shortcuts to customize the structure of slides. You type a word at the beginning of a line:
+
+    -   cow - callout warning
+    -   con - callout note
+    -   cot - callout tip
+    -   two - two-column display
+    -   twocenter - two columns with centered text
+    -   note - slide speaker note
+    -   no - new vs. old code
+    -   footer - tiny text footer
+    -   image - image
+
+## What do the shortcuts do?
+
+-   The snippets typically add an open fence `:::{}` which contains options and also a closing fence `:::`.
+    + You add your _text_ content between the fences.
+-   For example, the **cow** shortcut is converted into something like:
+
+``` markdown        
+:::{.callout-warning appearance=simple}
+Text like, "Listening to loud music can hurt your hearing." belongs here.
+:::
+```
+
+::: {.callout-warning appearance="simple"}
+Text like, "Listening to loud music can hurt your hearing." belongs here.
+:::
+
+-   Here, the options specify that there should be a warning symbol and a colored margin.
+
+## Two Columns
+:::{.small}
+The `two` shortcut adds an outer fence, which starts with `:::: {.columns}` and ends with `::::`. This surrounds two distinct inner fences, which correspond to a left and right column. Notice that the outer fence uses four colons to surround the nested sections, each of which uses three columns. This helps readability.  The first inner fence surrounds the left column and the second inner fence surrounds the right column content.
+:::
+
+``` markdown        
+:::: {.columns}
+
+::: {.column width="50%"}
++ left-content
++ more left stuff
+:::
+
+::: {.column width="50%"}
++ right-content   
++ the right stuff
+:::
+::::
+```
+
+::: columns
+::: {.column width="50%"}
+-   left-content\
+-   more left stuff
+:::
+
+::: {.column width="50%"}
+-   right-content\
+-   the right stuff
+:::
+:::
+
+## Centering Two Columns
+
+:::{.small}
+-   The `twocenter` shortcut makes two columns and centers the content.
+-   The `style=` options in the outer fence overwrites other positioning settings and specifies how far down the slide the two centered columns belong.
+:::
+
+``` markdown        
+:::: {.columns style='display: flex !important; height: 20%;'}
+
+::: {.column style='display: flex; justify-content: center; align-items: center; text-align: left;'}
+left-content  
+blah
+:::
+
+::: {.column style='display: flex; justify-content: center; align-items: center; text-align: left;'}
+right-content  
+blah
+:::
+::::
+```
+
+::: {.columns style="display: flex !important; height: 20%;"}
+::: {.column style="display: flex; justify-content: center; align-items: center; text-align: left;"}
+left-content\
+blah
+:::
+
+::: {.column style="display: flex; justify-content: center; align-items: center; text-align: left;"}
+right-content\
+blah
+:::
+:::
+
+## More Centered
+
+-   You can center the text as well as the columns by setting  
+`text-align: center;`
+
+``` markdown        
+:::: {.columns style='display: flex !important; height: 40%;'}
+
+::: {.column style='display: flex; justify-content: center; align-items: center; text-align: center;'}
+left-content  
+blah
+:::
+
+::: {.column style='display: flex; justify-content: center; align-items: center; text-align: center;'}
+right-content  
+blah
+:::
+::::
+```
+
+::: {.columns style="display: flex !important; height: 40%;"}
+::: {.column style="display: flex; justify-content: center; align-items: center; text-align: center;"}
+left-content\
+blah
+:::
+
+::: {.column style="display: flex; justify-content: center; align-items: center; text-align: center;"}
+right-content\
+blah
+:::
+:::
+
+# Getting the Shortcuts
+
+:::{.small}
++ A video showing these instructions is [here](https://vimeo.com/videos/913353916).
++ Copy my code from [here]( https://gist.githubusercontent.com/RaymondBalise/3ed5c1dfabc5ca1514462b57cecb5666/raw/198105d73ba727c4b4cb78905884694dbbc882dd/RStudio%2520markdown%2520snippets).  You can also copy and paste from below, but you may need to delete unwanted characters. If you see salmon colored blocks, delete them. The indentation must use the tab key (not spaces).
++ In RStudio go to the Tools Menu > General Options > Code (Windowpane) > Edit Snippets... (Button) > Markdown (Windowpane)
++ Paste the new code below the code that is already there (typically after the "snippet rcpp" chunk).
+:::
+
+:::{.max-lines}
+
+````markdown
+# quarto callout note
+snippet con
+	:::{.callout-note  appearance=minimal}
+	${1:text}
+	:::
+
+# quarto callout tip	
+snippet cot
+	:::{.callout-tip appearance=simple}
+	${1:text}
+	:::
+
+# quarto callout warning
+snippet cow
+	:::{.callout-warning appearance=simple}
+	${1:text}
+	:::
+
+# quarto two-column display
+snippet two
+	:::: {.columns}
+	
+	::: {.column width="50%"}
+	${1:left-content}
+	:::
+	
+	::: {.column width="50%"}
+	${2:right}
+	:::
+	::::
+
+# quarto two columns with centered text
+snippet twocenter
+	:::: {.columns style='display: flex !important; height: 40%;'}
+	
+	::: {.column style='display: flex; justify-content: center; align-items: center; text-align: left;'}
+	${1:left-content} 
+	:::
+	
+	::: {.column style='display: flex; justify-content: center; align-items: center; text-align: left;'}
+	${2:right}
+	:::
+	::::
+
+# quarto slide speaker note
+snippet note
+	::: {.notes}
+	${1:note}
+	:::
+
+# quarto new vs. old code
+snippet no
+	```{r}
+	${0:code}
+	
+	```
+	
+	```{r}
+	#| eval: false
+	#| code-fold: true
+	#| code-summary: "Original code"
+	
+	
+	```
+
+# quarto footer
+snippet footer
+	::: {.footer style="font-size: .2em;"}
+	${0}
+	:::
+
+# quarto image
+snippet image
+	
+	::: {}
+	![](images/${0}){.nostretch fig-align="center" width=50%}
+	:::
+	
+
+````
+:::
+
+# Fancy Stuff
+
+## Annotation
+
+You can add annotation bubbles by adding code like `# <1>`. If you type:
+````markdown
+```r
+setwd("C:\Users\jenny\path\that\only\I\have") # <1>
+rm(list = ls()) # <2>
+```
+
+1. I want to make flaming cocktails with Jenny Brian.
+2. I used to use this before R Projects.
+````
+Students see:
+
+```r
+setwd("C:\Users\jenny\path\that\only\I\have") # <1>
+rm(list = ls()) # <2>
+```
+
+1. I want to make flaming cocktails with Jenny Brian.
+2. I used to use this before RStudio Projects.
+
+## Customizing Code Slides 
+-   If you want to highlight specific lines of your displayed code without annotation, you can add line numbers to the `#| code-line-numbers:` option:
+
+```{{r}}
+#| echo: true
+#| code-line-numbers: "2"
+thingy <- c("x", "y")
+df[, thingy]
+```
+
+<br>
+```{r}
+#| echo: true
+#| code-line-numbers: "2"
+thingy <- c("x", "y")
+df[, thingy]
+```
+
++ You can turn on and off the highlighting for multiple lines in sequence. Learn more [here](https://quarto.org/docs/presentations/revealjs/#line-highlighting).
+
+## Showing Code Blocks
+
+- If you want to show code along with surrounding backtick fences, you type double curly braces around the language options.  This code in your slides:
+
+```{{{r}}}
+#| echo: true
+#| code-line-numbers: "2"
+thingy <- c("x", "y")
+df[, thingy]
+```
+
+will show to the students as:
+```{{r}}
+#| echo: true
+#| code-line-numbers: "2"
+thingy <- c("x", "y")
+df[, thingy]
+```
+
+If you need to show the example with the two curly braces {{ }}, like above, you type three of them {{{ }}}.
+
+## Showing Code and Output
+::: {.small}
+If you want to show code with the output next to it, you can add hash pipe options. You type:
+
+````markdown
+```{{r}}
+#| echo: true
+#| output-location: column
+
+library(ggplot2)
+airquality |> 
+  tidyr::drop_na() |> 
+  ggplot(aes(Temp, Ozone)) +
+  geom_point() 
+```
+````
+Students see:
+```{r}
+#| echo: true
+#| output-location: column
+
+library(ggplot2)
+airquality |> 
+  tidyr::drop_na() |> 
+  ggplot(aes(Temp, Ozone)) +
+  geom_point() 
+```
+
+:::
+
+## Showing Sequential Code
+ 
+If you want to show how output changes as you add lines to a workflow, you can add `{auto-animate=true}` after the tiles for the slides that you want to animate:
+
+``` markdown
+## Adding Geom Demo {auto-animate=true}
+code
+
+## Adding Geom Demo {auto-animate=true}
+code + more code
+```
+
+## Adding Geom Demo {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+
+library(ggplot2)
+airquality |> 
+  tidyr::drop_na() |> 
+  ggplot(aes(Temp, Ozone)) +
+  geom_point() 
+```
+
+## Adding Geom Demo {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+library(ggplot2)
+airquality |> 
+  tidyr::drop_na() |> 
+  ggplot(aes(Temp, Ozone)) + 
+  geom_point() +
+  geom_smooth(
+    method = "loess",
+    formula = y ~ x
+  )
+```
+
+## Custom Scrolling Box Size
+
+Code boxes fill the screen, then they scroll. If you want text after the code, you can specify the height of your scrolling code block by defining a custom css class like this:
+
+
+```{css}
+.max-lines-150 {
+  max-height: 150px; /* Adjust height as needed */
+  overflow: scroll; /* Enable scrolling if content exceeds height */
+}
+```
+
+```{{css}}
+.max-lines-150 {
+  max-height: 150px; /* Adjust height as needed */
+  overflow: scroll; /* Enable scrolling if content exceeds height */
+}
+```
+
+Then precede the code block with a fence with a reference to the class with `::: {.max-lines-150}` and follow it with a close `:::`. It looks like:
+
+::: {.max-lines-150}
+```{{r}}
+# This goes down to the letter F
+stuff <- tibble::tribble(
+stuff~,
+A,
+B,
+C,
+D,
+E,
+F
+)
+```
+:::
+
++ I have room for a final note. The full code is on the next slide.
+
+## Custom Scrolling Box Size - Code
+
+````
+```{{css}}
+.max-lines-150 {
+  max-height: 150px; /* Adjust height as needed */
+  overflow: scroll; /* Enable scrolling if content exceeds height */
+}
+```
+
+::: {.max-lines-150}
+```{{r}}
+# This goes down to the letter F
+stuff <- tibble::tribble(
+stuff~,
+A,
+B,
+C,
+D,
+E,
+F
+)
+```
+:::
+````
+
+## Other CSS Classes
+You can define your own CSS classes and use them in fences or to tweak words.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+First, define classes:
+```{{css}}
+.smaller {
+  font-size: 50%  
+}
+
+.smallerer {
+  font-size: 10%  
+}
+
+.red {
+  color: red;
+}
+```
+```{css}
+.small{
+  font-size: 70%
+}
+
+.smaller{
+  font-size: 50%  
+}
+
+.smallerer{
+  font-size: 10%  
+}
+
+.red{
+  color: red;
+}
+```
+:::
+
+::: {.column width="50%"}
+Then use them.
+This is not styled text.
+
+``` markdown
+::: {.smaller}
+This uses my smaller css class.
+:::
+```
+
+
+::: {.smaller}
+This uses my smaller css class.
+:::
+
+``` markdown
+::: {.smallerer}
+This uses my smallerer css class.
+:::
+```
+
+::: {.smallerer}
+This uses my smallerer css class.
+:::
+
+
+``` markdown
+This is [colored]{.red} with my red class.
+```
+
+This is [colored]{.red} with my red class.
+
+
+:::
+::::
+
+## Theming/Styling
+
++ You can customize the fonts and every aspect of the colors you use (background, foreground, fonts). There are a couple of great, quick tutorials:
+  + Greg Swinehart's [talk](https://www.youtube.com/watch?v=i2mdxfvm_VY) and [materials](https://github.com/gregswinehart/conf-talk-2023)
+  + Emil Hvitfeldt's website from his Posit::Conf(2023) [talk](https://emilhvitfeldt.github.io/talk-quarto-theming-positconf/#/make-pretty-things)
+
+## Full Slide Scrolling
+
+I regularly want to make a huge slide but the content does not fit.  This CSS class turns the slide into an endless canvas.
+
+```{{css}}
+.scrolling {
+  overflow: scroll;
+  height: 600px; 
+}
+```
+
+You add this to a fence right below the title and close the fence before the title of the next slide.
+
+## Full Slide Scrolling - Example 
+
+:::{.scrolling}
+``` markdown
+:::{.scrolling}
+1. Taylor Swift (2006)
+1. Fearless (2008)
+1. Speak Now (2010)
+1. Red (2012)
+1. 1989 (2014)
+1. Reputation (2017)
+1. Lover (2019)
+1. Folklore (2020)
+1. Evermore (2020)
+1. Fearless (Taylor's Version) (2021)
+1. Red (Taylor's Version) (2021)
+1. Midnights (2022)
+1. Speak Now (Taylor's Version) (2023)
+1. 1989 (Taylor's Version) (2023)
+1. The Tortured Poets Department (April 2024)
+:::
+```
+
+1. Taylor Swift (2006)
+1. Fearless (2008)
+1. Speak Now (2010)
+1. Red (2012)
+1. 1989 (2014)
+1. Reputation (2017)
+1. Lover (2019)
+1. Folklore (2020)
+1. Evermore (2020)
+1. Fearless (Taylor's Version) (2021)
+1. Red (Taylor's Version) (2021)
+1. Midnights (2022)
+1. Speak Now (Taylor's Version) (2023)
+1. 1989 (Taylor's Version) (2023)
+1. The Tortured Poets Department (April 2024)
+:::
+
+## Nested Fences
+::: {.small}
+Remember the two-column customization used nested fences like this:
+:::
+
+``` markdown
+:::: {.columns}
+
+::: {.column width="50%"}
+:::
+
+::: {.column width="50%"}
+:::
+::::
+```
+
+::: {.small}
+You can nest deeper.  If you wanted to use really small text in a column, the code would look like this:
+:::
+
+``` markdown
+::::: {.columns}
+
+:::: {.column width="10%"}
+::: {.smaller}
++ a
++ b
+:::
+::::
+
+:::: {.column width="10%"}
++ c
++ d
+::::
+:::::
+```
+
+
+
+## Nested Fences - Example
+
+``` makdown
+::::: {.columns}
+
+:::: {.column width="10%"}
+::: {.smaller}
++ a
++ b
+:::
+::::
+
+:::: {.column width="10%"}
++ c
++ d
+::::
+:::::
+```
+
+<hr/>
+::::: {.columns}
+
+:::: {.column width="50%"}
+::: {.smaller}
++ a
++ b
+:::
+::::
+
+:::: {.column width="50%"}
++ c
++ d
+::::
+:::::
+
+# Sharing
+
+## Options for Sharing
+
+1. You can use the RStudio IDE publish button.
+    + UM provides a posit.connect server.  It has user-friendly tools for setting up groups (classes) and allowing access for whomever you would like.
+    + You can also publish to Quarto Pubs or other public sites. Learn more [here](https://quarto.org/docs/publishing/).
+
+![](images/publish.jpg){.nostretch fig-align="center" width=40%}
+
+
+# Questions?
