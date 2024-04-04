@@ -1,0 +1,95 @@
+---
+title: "Drug Related Deaths"
+author: "Raymond R. Balise"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::html_document2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  # These options can be set to FALSE (capitalization matters).
+  echo = FALSE,    # don't show code
+  message = TRUE, # show messages
+  warning = TRUE, # show warnings
+  error = TRUE,   # show errors
+  comment = ""    # don't show ## with printed output
+)
+
+options(digits = 3) # round to three digits
+```
+
+```{r tidy-packages, include=FALSE, message=FALSE}
+library(conflicted)
+conflict_prefer("filter", "dplyr", quiet = TRUE)
+conflict_prefer("lag", "dplyr", quiet = TRUE)
+suppressPackageStartupMessages(library(tidyverse))
+
+suppressPackageStartupMessages(library(tidymodels))
+tidymodels_prefer()
+
+# suppress "`summarise()` has grouped output by " messages
+options(dplyr.summarise.inform = FALSE)
+```
+
+
+```{r other-packages}
+library(epoxy)
+
+epoxy_transform_set(
+  .signif = function(x) {
+    if_else(
+      x < 0.05, 
+      "is statistically significant", 
+      "is not statistically significant"
+    )
+  },
+  .decrease = function(x) {
+    if_else(x < 0, "decreasing", "not decreasing")
+  }
+)
+```
+
+# Opioids
+## Overall Summary
+
+```{r load-data}
+place <- "Miami-Dade"
+
+raw_tibble <- rio::import(paste0(place, ".csv"))
+```
+
+```{r}
+the_regrssion <- 
+  lm(`Opioid Deaths` ~ Year, data = raw_tibble) |> 
+  tidy() 
+
+the_beta <- 
+  the_regrssion |> 
+  filter(term == "Year") |> 
+  pull(estimate)
+
+the_p <- 
+  the_regrssion |> 
+  filter(term == "Year") |> 
+  pull(p.value)
+```
+
+```{r fig-death-plot, fig.cap = glue::glue("Death rate per year.")}
+raw_tibble |> 
+  ggplot(aes(x = Year, y = `Opioid Deaths`)) + 
+  geom_point() +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE) +
+  expand_limits(y = 0) +
+  scale_y_continuous(breaks= pretty_breaks()) +
+  theme_bw() + 
+  labs(caption = "Source: Not the Florida Department of Health.")
+```
+
+```{epoxy}
+As can be seen in figure \@ref(fig:fig-death-plot) the death rate in {place} is {.decrease the_beta}. This effect {.signif the_p} (p < {.pvalue the_p})
+```
+
+## Details 
+
+**Fabuous** details go here.
