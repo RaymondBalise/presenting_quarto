@@ -154,3 +154,6 @@ _bookdown_files/
 /_site/
 .quarto/
 _site/
+
+!Broward.csv
+!Miami-Dade.csv
